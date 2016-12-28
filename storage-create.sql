@@ -7,7 +7,7 @@ CREATE TABLE sessions (ResourceId BIGINT NOT NULL, Signature INTEGER, UserId BIG
 CREATE TABLE users_tokens (ResourceId BIGINT NOT NULL, Token INTEGER NOT NULL, Type INTEGER NOT NULL, UserId BIGINT NOT NULL, PRIMARY KEY (ResourceId))
 CREATE TABLE users (ResourceId BIGINT NOT NULL, Email VARCHAR(255) NOT NULL, EmailConfirmed TINYINT(1) default 0, EmailNew VARCHAR(255), Identity VARCHAR(255) NOT NULL, Name VARCHAR(255) NOT NULL, Origin VARCHAR(255) NOT NULL, Pwdhash VARCHAR(255), Random INTEGER, Registered DATETIME, PRIMARY KEY (ResourceId))
 CREATE UNIQUE INDEX INDEX_users_Origin_Identity_Email ON users (Origin, Identity, Email)
-CREATE TABLE portals (ResourceId BIGINT NOT NULL, Content LONGTEXT NOT NULL, shared TINYINT(1) default 0, Title VARCHAR(255) NOT NULL, ThumbnailId BIGINT, UserId BIGINT NOT NULL, PRIMARY KEY (ResourceId))
+CREATE TABLE portals (ResourceId BIGINT NOT NULL, Content LONGTEXT, Shared TINYINT(1) default 0, Title VARCHAR(255) NOT NULL, ThumbnailId BIGINT, UserId BIGINT NOT NULL, PRIMARY KEY (ResourceId))
 CREATE TABLE aspects (RelateId BIGINT, Aspect VARCHAR(255))
 ALTER TABLE images ADD CONSTRAINT FK_images_ResourceId FOREIGN KEY (ResourceId) REFERENCES resources (Id) ON DELETE CASCADE
 ALTER TABLE resources_images ADD CONSTRAINT FK_resources_images_ResourceId FOREIGN KEY (ResourceId) REFERENCES resources (Id) ON DELETE CASCADE
