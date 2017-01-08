@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.ntr1x.storage.archery.filters.PortalScopeFilter;
 import com.ntr1x.storage.core.converter.ConverterProvider;
 import com.ntr1x.storage.core.filtering.ResourceFilteringFeature;
 import com.ntr1x.storage.core.jersey.ExceptionMapperProvider;
@@ -69,6 +70,7 @@ public class JerseyConfig extends ResourceConfig {
 		register(EntityFilteringFeature.class);
 		register(ResourceFilteringFeature.class);
 		register(RolesAllowedDynamicFeature.class);
+		register(PortalScopeFilter.class);
 		register(AuthenticationFilter.class);
 		register(AuthorizationFilter.class);
 		

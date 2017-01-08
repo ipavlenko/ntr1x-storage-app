@@ -6,9 +6,15 @@ import javax.inject.Inject;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import com.ntr1x.storage.core.services.IBatchService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.ntr1x.storage.archery.model.Portal;
+import com.ntr1x.storage.archery.services.IPortalService;
+import com.ntr1x.storage.archery.services.IPortalService.PortalCreate;
 import com.ntr1x.storage.core.services.ISerializationService;
+import com.ntr1x.storage.core.services.ITransactionService;
+import com.ntr1x.storage.security.model.User;
 import com.ntr1x.storage.security.services.IUserService;
+import com.ntr1x.storage.security.services.IUserService.UserCreate;
 
 @Component
 @Profile("setup")
@@ -18,22 +24,45 @@ public class Setup {
 	private IUserService users;
 	
 	@Inject
-	private IBatchService batch;
+	private IPortalService portals;
+	
+	@Inject
+	private ITransactionService transactions;
 	
 	@Inject
 	private ISerializationService serialization;
 	
 	@PostConstruct
-    public void init(){
+    public void init() {
 		
-		IBatchService.Context context = new IBatchService.Context()
-			.on("create-user", (args) -> {
-				users.create(
-					serialization.parseJSONNodeJackson(IUserService.CreateUser.class, args.get(0))
-				);
-			})
-		;
-		
-		batch.execute(context, this.getClass().getResource("/jobs-setup.json"));
+		transactions.execute(() -> {
+			setup();
+		});
     }
+
+	@SuppressWarnings("unused")
+	private void setup() {
+		
+		long scope = 4L;
+		
+		JsonNode setupUsers = serialization.readJSONNodeJackson(this.getClass().getResource("/setup-users.json"));
+		
+		User admin = null; {
+			UserCreate u = serialization.parseJSONNodeJackson(UserCreate.class, setupUsers.get("admin"));
+			admin = users.create(scope, u);
+		}
+		
+		User user = null; {
+			UserCreate u = serialization.parseJSONNodeJackson(UserCreate.class, setupUsers.get("user"));
+			user = users.create(scope, u);
+		}
+		
+		JsonNode setupPortals = serialization.readJSONNodeJackson(this.getClass().getResource("/setup-portals.json"));
+		
+		Portal portal = null; {
+			PortalCreate p = serialization.parseJSONNodeJackson(PortalCreate.class, setupPortals.get("archery"));
+			p.user = admin.getId();
+			portal = portals.create(scope, p);
+		}
+	}
 }

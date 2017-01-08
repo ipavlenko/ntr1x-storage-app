@@ -1,0 +1,21 @@
+{
+	"admin": {
+		"origin": "local",
+		"identity": "",
+		"email": "admin@example.com",
+		"emailConfirmed": true,
+		"password": "admin123",
+		"name": "Admin",
+		"grants": [
+			{ "pattern": "/", "allow": "admin" }
+		]
+	},
+	"user": {
+		"origin": "local",
+		"identity": "",
+		"email": "user@example.com",
+		"emailConfirmed": true,
+		"password": "user123",
+		"name": "User"
+	}
+}

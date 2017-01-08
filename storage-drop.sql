@@ -22,7 +22,7 @@ DROP INDEX INDEX_grants_Pattern_Action ON grants
 DROP TABLE grants
 DROP TABLE sessions
 DROP TABLE users_tokens
-DROP INDEX INDEX_users_Origin_Identity_Email ON users
+DROP INDEX INDEX_users_Scope_Origin_Identity_Email ON users
 DROP TABLE users
 DROP TABLE domains
 DROP TABLE portals
