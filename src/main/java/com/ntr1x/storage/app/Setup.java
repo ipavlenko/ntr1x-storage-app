@@ -59,10 +59,10 @@ public class Setup {
 		
 		JsonNode setupPortals = serialization.readJSONNodeJackson(this.getClass().getResource("/setup-portals.json"));
 		
-		Portal portal = null; {
+		Portal archery = null; {
 			PortalCreate p = serialization.parseJSONNodeJackson(PortalCreate.class, setupPortals.get("archery"));
 			p.user = admin.getId();
-			portal = portals.create(scope, p);
+			archery = portals.create(scope, p);
 		}
 	}
 }

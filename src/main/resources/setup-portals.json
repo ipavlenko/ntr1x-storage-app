@@ -1,8 +1,14 @@
 {
 	"archery": {
-		"title": "Archery",
+		"title": "Archery API",
 		"domains": [{
-			"name": "swagger.storage.tp.ntr1x.com",
+			"name": "archery.swagger.ntr1x.com",
+			"type": "API"
+		}, {
+			"name": "archery.ntr1x.com",
+			"type": "API"
+		}, {
+			"name": "localhost:3000",
 			"type": "API"
 		}]
 	}
