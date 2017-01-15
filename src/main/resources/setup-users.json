@@ -1,5 +1,6 @@
 {
 	"admin": {
+		"type": "SYSTEM",
 		"origin": "local",
 		"identity": "",
 		"email": "admin@example.com",
@@ -11,6 +12,7 @@
 		]
 	},
 	"user": {
+		"type": "GENERAL",
 		"origin": "local",
 		"identity": "",
 		"email": "user@example.com",
