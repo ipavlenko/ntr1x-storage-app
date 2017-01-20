@@ -1,15 +1,55 @@
 {
 	"archery": {
 		"title": "Archery API",
-		"domains": [{
-			"name": "archery.swagger.ntr1x.com",
-			"type": "API"
-		}, {
-			"name": "archery.ntr1x.com",
-			"type": "API"
-		}, {
-			"name": "localhost:3000",
-			"type": "API"
-		}]
+		"domains": [
+			{ "name": "archery.swagger.ntr1x.com" },
+			{ "name": "archery.ntr1x.com" },
+			{ "name": "localhost:3000" }
+		],
+		"params": [
+			{ "type": "MAIL", "name": "mail.host", "value": "smtp.mail.ru" },
+			{ "type": "MAIL", "name": "mail.port", "value": 465 },
+			{ "type": "MAIL", "name": "mail.username", "value": "dopperst@inbox.ru" },
+			{ "type": "MAIL", "name": "mail.password", "value": "fanatic" },
+			{ "type": "MAIL", "name": "mail.protocol", "value": "smtp" },
+			{ "type": "MAIL", "name": "mail.properties.mail.debug", "value": true },
+			{ "type": "MAIL", "name": "mail.properties.mail.transport.protocol", "value": "smtp" },
+			{ "type": "MAIL", "name": "mail.properties.mail.smtp.auth", "value": true },
+			{ "type": "MAIL", "name": "mail.properties.mail.smtp.starttls.enable", "value": true },
+			{ "type": "MAIL", "name": "mail.properties.mail.smtp.socketFactory.class", "value": "javax.net.ssl.SSLSocketFactory" },
+			{ "type": "MAIL", "name": "mail.properties.mail.smtp.socketFactory.port", "value": 465 },
+			
+			{ "type": "META", "name": "meta.description", "value": "Archery - Open your online universe" },
+			
+			{ "type": "ROUTE", "name": "route.passwd.confirmed", "value": "/" },
+			{ "type": "ROUTE", "name": "route.email.confirmed", "value": "/" },
+			{ "type": "ROUTE", "name": "route.recover.confirmed", "value": "/passwd" }
+		],
+		"templates": [
+			{
+				"name": "signup",
+				"sender": "dopperst@inbox.ru",
+				"subject": "Signup confirmation",
+				"content": "$resources.string($resources.content('/templates/mail/signup-en.vm'))"
+			},
+			{
+				"name": "email",
+				"sender": "dopperst@inbox.ru",
+				"subject": "Email confirmation",
+				"content": "$resources.string($resources.content('/templates/mail/email-en.vm'))"
+			},
+			{
+				"name": "recover",
+				"sender": "dopperst@inbox.ru",
+				"subject": "Password recovery",
+				"content": "$resources.string($resources.content('/templates/mail/recover-en.vm'))"
+			},
+			{
+				"name": "passwd",
+				"sender": "dopperst@inbox.ru",
+				"subject": "Password updated",
+				"content": "$resources.string($resources.content('/templates/mail/passwd-en.vm'))"
+			}
+		]
 	}
 }

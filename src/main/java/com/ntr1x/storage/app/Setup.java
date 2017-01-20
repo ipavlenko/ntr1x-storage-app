@@ -1,8 +1,14 @@
 package com.ntr1x.storage.app;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.tools.generic.EscapeTool;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.ntr1x.storage.archery.model.Portal;
 import com.ntr1x.storage.archery.services.IPortalService;
 import com.ntr1x.storage.archery.services.IPortalService.PortalCreate;
+import com.ntr1x.storage.core.services.IRendererService;
 import com.ntr1x.storage.core.services.ISerializationService;
 import com.ntr1x.storage.core.services.ITransactionService;
 import com.ntr1x.storage.security.model.User;
@@ -25,6 +32,9 @@ public class Setup {
 	
 	@Inject
 	private IPortalService portals;
+	
+	@Inject
+	private IRendererService renderer;
 	
 	@Inject
 	private ITransactionService transactions;
@@ -45,7 +55,11 @@ public class Setup {
 		
 		long scope = 4L;
 		
-		JsonNode setupUsers = serialization.readJSONNodeJackson(this.getClass().getResource("/setup-users.json"));
+		JsonNode setupUsers = serialization.readJSONNodeJackson(
+			renderer.renderer("/setup-users.json")
+				.with("resources", ResourceLoader.class)
+				.render(this.getClass().getResource("/setup-users.json"))
+		);
 		
 		User admin = null; {
 			UserCreate u = serialization.parseJSONNodeJackson(UserCreate.class, setupUsers.get("admin"));
@@ -57,12 +71,39 @@ public class Setup {
 			user = users.create(scope, u);
 		}
 		
-		JsonNode setupPortals = serialization.readJSONNodeJackson(this.getClass().getResource("/setup-portals.json"));
+		JsonNode setupPortals = serialization.readJSONNodeJackson(
+			renderer.renderer("/setup-portals.json")
+				.with("resources", ResourceLoader.class)
+				.render(this.getClass().getResource("/setup-portals.json"))
+		);
 		
 		Portal archery = null; {
 			PortalCreate p = serialization.parseJSONNodeJackson(PortalCreate.class, setupPortals.get("archery"));
 			p.user = admin.getId();
 			archery = portals.create(scope, p);
+		}
+	}
+	
+	public static class ResourceLoader {
+		
+		public static String string(String original) {
+			
+			return new EscapeTool().java(original);
+		}
+		
+		public static String content(String location) {
+			
+			try (InputStream input = ResourceLoader.class.getResource(location).openStream()) {
+				
+				StringWriter writer = new StringWriter();
+				IOUtils.copy(input, writer, "UTF-8");
+				
+				return writer.toString();
+				
+			} catch (IOException e) {
+				
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 }
