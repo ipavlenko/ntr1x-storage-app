@@ -1,6 +1,6 @@
 {
 	"archery": {
-		"title": "Archery API",
+		"title": "Archery",
 		"domains": [
 			{ "name": "archery.swagger.ntr1x.com" },
 			{ "name": "archery.ntr1x.com" },

@@ -1,14 +1,8 @@
 package com.ntr1x.storage.app;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.velocity.tools.generic.EscapeTool;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +13,7 @@ import com.ntr1x.storage.archery.services.IPortalService.PortalCreate;
 import com.ntr1x.storage.core.services.IRendererService;
 import com.ntr1x.storage.core.services.ISerializationService;
 import com.ntr1x.storage.core.services.ITransactionService;
+import com.ntr1x.storage.core.utils.ResourceLoader;
 import com.ntr1x.storage.security.model.User;
 import com.ntr1x.storage.security.services.IUserService;
 import com.ntr1x.storage.security.services.IUserService.UserCreate;
@@ -81,29 +76,6 @@ public class Setup {
 			PortalCreate p = serialization.parseJSONNodeJackson(PortalCreate.class, setupPortals.get("archery"));
 			p.user = admin.getId();
 			archery = portals.create(scope, p);
-		}
-	}
-	
-	public static class ResourceLoader {
-		
-		public static String string(String original) {
-			
-			return new EscapeTool().java(original);
-		}
-		
-		public static String content(String location) {
-			
-			try (InputStream input = ResourceLoader.class.getResource(location).openStream()) {
-				
-				StringWriter writer = new StringWriter();
-				IOUtils.copy(input, writer, "UTF-8");
-				
-				return writer.toString();
-				
-			} catch (IOException e) {
-				
-				throw new IllegalArgumentException(e);
-			}
 		}
 	}
 }
