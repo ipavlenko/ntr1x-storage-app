@@ -30,25 +30,25 @@
 				"name": "signup",
 				"sender": "dopperst@inbox.ru",
 				"subject": "Signup confirmation",
-				"content": "$resources.string($resources.content('/templates/mail/signup-en.vm'))"
+				"content": "$resources.string($resources.content('/templates/mail/signup.vm'))"
 			},
 			{
 				"name": "email",
 				"sender": "dopperst@inbox.ru",
 				"subject": "Email confirmation",
-				"content": "$resources.string($resources.content('/templates/mail/email-en.vm'))"
+				"content": "$resources.string($resources.content('/templates/mail/email.vm'))"
 			},
 			{
 				"name": "recover",
 				"sender": "dopperst@inbox.ru",
 				"subject": "Password recovery",
-				"content": "$resources.string($resources.content('/templates/mail/recover-en.vm'))"
+				"content": "$resources.string($resources.content('/templates/mail/recover.vm'))"
 			},
 			{
 				"name": "passwd",
 				"sender": "dopperst@inbox.ru",
 				"subject": "Password updated",
-				"content": "$resources.string($resources.content('/templates/mail/passwd-en.vm'))"
+				"content": "$resources.string($resources.content('/templates/mail/passwd.vm'))"
 			}
 		]
 	}
