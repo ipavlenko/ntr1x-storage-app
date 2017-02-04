@@ -17,6 +17,8 @@ import com.ntr1x.storage.core.utils.ResourceLoader;
 import com.ntr1x.storage.security.model.User;
 import com.ntr1x.storage.security.services.IUserService;
 import com.ntr1x.storage.security.services.IUserService.UserCreate;
+import com.ntr1x.storage.store.services.IOfferService;
+import com.ntr1x.storage.store.services.IOfferService.OfferCreate;
 
 @Component
 @Profile("setup")
@@ -27,6 +29,9 @@ public class Setup {
 	
 	@Inject
 	private IPortalService portals;
+	
+	@Inject
+	private IOfferService offers;
 	
 	@Inject
 	private IRendererService renderer;
@@ -76,6 +81,40 @@ public class Setup {
 			PortalCreate p = serialization.parseJSONNodeJackson(PortalCreate.class, setupPortals.get("archery"));
 			p.user = admin.getId();
 			archery = portals.create(scope, p);
+		}
+		
+		JsonNode setupOffers = serialization.readJSONNodeJackson(
+			renderer.renderer("/setup-offers.json")
+				.with("resources", ResourceLoader.class)
+				.render(this.getClass().getResource("/setup-offers.json"))
+		);
+		
+		{
+			OfferCreate o = serialization.parseJSONNodeJackson(OfferCreate.class, setupOffers.get("starter"));
+			o.user = admin.getId();
+			o.relate = archery.getId();
+			offers.create(scope, o);
+		}
+		
+		{
+			OfferCreate o = serialization.parseJSONNodeJackson(OfferCreate.class, setupOffers.get("business"));
+			o.user = admin.getId();
+			o.relate = archery.getId();
+			offers.create(scope, o);
+		}
+		
+		{
+			OfferCreate o = serialization.parseJSONNodeJackson(OfferCreate.class, setupOffers.get("server"));
+			o.user = admin.getId();
+			o.relate = archery.getId();
+			offers.create(scope, o);
+		}
+		
+		{
+			OfferCreate o = serialization.parseJSONNodeJackson(OfferCreate.class, setupOffers.get("advanced"));
+			o.user = admin.getId();
+			o.relate = archery.getId();
+			offers.create(scope, o);
 		}
 	}
 }
