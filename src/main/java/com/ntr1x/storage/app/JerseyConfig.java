@@ -17,10 +17,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.ntr1x.storage.core.converter.ConverterProvider;
 import com.ntr1x.storage.core.filtering.ResourceFilteringFeature;
 import com.ntr1x.storage.core.jersey.ExceptionMapperProvider;
-import com.ntr1x.storage.core.jersey.ObjectMapperProvider;
 import com.ntr1x.storage.security.filters.CORSRequestFilter;
 import com.ntr1x.storage.security.filters.CORSResponseFilter;
 
@@ -46,7 +46,7 @@ public class JerseyConfig extends ResourceConfig {
 	public ServiceLocatorProvider getServiceLocator() {
 	    return new ServiceLocatorProvider(this);
 	}
-	
+
     public JerseyConfig() {
 		
 		packages("com.ntr1x.storage");
@@ -58,12 +58,13 @@ public class JerseyConfig extends ResourceConfig {
 		register(CORSRequestFilter.class);
 		register(CORSResponseFilter.class);
 		register(ConverterProvider.class);
-		register(ObjectMapperProvider.class);
+//		register(ObjectMapperProvider.class);
 		register(ExceptionMapperProvider.class);
 		register(MultiPartFeature.class);
 //		register(MoxyXmlFeature.class);
 //		register(MoxyJsonFeature.class);
 		register(JacksonFeature.class);
+		register(JacksonJaxbJsonProvider.class);
 		register(EntityFilteringFeature.class);
 		register(ResourceFilteringFeature.class);
 		register(RolesAllowedDynamicFeature.class);
