@@ -28,21 +28,21 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @EnableJpaRepositories({ "com.ntr1x.storage" })
 @EntityScan({ "com.ntr1x.storage" })
 public class JpaConfig extends JpaBaseConfiguration {
-	
-	@Value("${eclipselink.ddl-generation.output-mode}")
-	private String generationMode;
-	
-	protected JpaConfig(
-		DataSource dataSource,
-		JpaProperties properties,
-		ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider
-	) {
-		super(dataSource, properties, jtaTransactionManagerProvider);
-	}
+    
+    @Value("${eclipselink.ddl-generation.output-mode}")
+    private String generationMode;
+    
+    protected JpaConfig(
+        DataSource dataSource,
+        JpaProperties properties,
+        ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider
+    ) {
+        super(dataSource, properties, jtaTransactionManagerProvider);
+    }
 
-	@Override
+    @Override
     protected AbstractJpaVendorAdapter createJpaVendorAdapter() {
-		
+        
         EclipseLinkJpaVendorAdapter adapter = new EclipseLinkJpaVendorAdapter();
         return adapter;
     }
@@ -50,18 +50,18 @@ public class JpaConfig extends JpaBaseConfiguration {
     @Override
     protected Map<String, Object> getVendorProperties() {
         
-    	HashMap<String, Object> map = new HashMap<String, Object>();
+        HashMap<String, Object> map = new HashMap<String, Object>();
         
-    	map.put(PersistenceUnitProperties.WEAVING, "static");
-    	map.put(PersistenceUnitProperties.DEPLOY_ON_STARTUP, "true");
-    	map.put(PersistenceUnitProperties.BATCH_WRITING, BatchWriting.JDBC);
-    	map.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.DROP_AND_CREATE);
-    	map.put(PersistenceUnitProperties.CREATE_JDBC_DDL_FILE, "storage-create.sql");
-    	map.put(PersistenceUnitProperties.DROP_JDBC_DDL_FILE, "storage-drop.sql");
-    	map.put(PersistenceUnitProperties.DDL_GENERATION_MODE, generationMode);
-    	map.put(PersistenceUnitProperties.CACHE_SHARED_DEFAULT, "false");
-    	map.put(PersistenceUnitProperties.PERSISTENCE_CONTEXT_COMMIT_WITHOUT_PERSIST_RULES, "false");
-    	
+        map.put(PersistenceUnitProperties.WEAVING, "static");
+        map.put(PersistenceUnitProperties.DEPLOY_ON_STARTUP, "true");
+        map.put(PersistenceUnitProperties.BATCH_WRITING, BatchWriting.JDBC);
+        map.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.DROP_AND_CREATE);
+        map.put(PersistenceUnitProperties.CREATE_JDBC_DDL_FILE, "storage-create.sql");
+        map.put(PersistenceUnitProperties.DROP_JDBC_DDL_FILE, "storage-drop.sql");
+        map.put(PersistenceUnitProperties.DDL_GENERATION_MODE, generationMode);
+        map.put(PersistenceUnitProperties.CACHE_SHARED_DEFAULT, "false");
+        map.put(PersistenceUnitProperties.PERSISTENCE_CONTEXT_COMMIT_WITHOUT_PERSIST_RULES, "false");
+        
         return map;
     }
     

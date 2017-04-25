@@ -33,57 +33,57 @@ import io.swagger.jaxrs.listing.SwaggerSerializers;
 @ApplicationPath("/")
 public class JerseyConfig extends ResourceConfig {
 
-	protected ServiceLocator serviceLocator;
-	
-	@Value("${app.public.host}")
+    protected ServiceLocator serviceLocator;
+    
+    @Value("${app.public.host}")
     private String host;
 
-	@Value("${app.public.schemes}")
+    @Value("${app.public.schemes}")
     private String[] schemes;
-	
-	@Bean
-	@Scope("singleton")
-	public ServiceLocatorProvider getServiceLocator() {
-	    return new ServiceLocatorProvider(this);
-	}
+    
+    @Bean
+    @Scope("singleton")
+    public ServiceLocatorProvider getServiceLocator() {
+        return new ServiceLocatorProvider(this);
+    }
 
     public JerseyConfig() {
-		
-		packages("com.ntr1x.storage");
-		
-		property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
-		
-		register(ApiListingResource.class);
-		register(SwaggerSerializers.class);
-		register(CORSRequestFilter.class);
-		register(CORSResponseFilter.class);
-		register(ConverterProvider.class);
-//		register(ObjectMapperProvider.class);
-		register(ExceptionMapperProvider.class);
-		register(MultiPartFeature.class);
-//		register(MoxyXmlFeature.class);
-//		register(MoxyJsonFeature.class);
-		register(JacksonFeature.class);
-		register(JacksonJaxbJsonProvider.class);
-		register(EntityFilteringFeature.class);
-		register(ResourceFilteringFeature.class);
-		register(RolesAllowedDynamicFeature.class);
-//		register(PortalScopeFilter.class);
-//		register(AuthenticationFilter.class);
-//		register(AuthorizationFilter.class);
-		
-//		register(new MoxyJsonConfig().setAttributePrefix("@").resolver());
-//		register(
-//			new LoggingFeature(
-//				Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
-//				Level.SEVERE,
-//				LoggingFeature.Verbosity.PAYLOAD_ANY,
-//				LoggingFeature.DEFAULT_MAX_ENTITY_SIZE
-//			)
-//		);
-		
-		register(new ContainerLifecycleListener() {
-		    
+        
+        packages("com.ntr1x.storage");
+        
+        property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
+        
+        register(ApiListingResource.class);
+        register(SwaggerSerializers.class);
+        register(CORSRequestFilter.class);
+        register(CORSResponseFilter.class);
+        register(ConverterProvider.class);
+//        register(ObjectMapperProvider.class);
+        register(ExceptionMapperProvider.class);
+        register(MultiPartFeature.class);
+//        register(MoxyXmlFeature.class);
+//        register(MoxyJsonFeature.class);
+        register(JacksonFeature.class);
+        register(JacksonJaxbJsonProvider.class);
+        register(EntityFilteringFeature.class);
+        register(ResourceFilteringFeature.class);
+        register(RolesAllowedDynamicFeature.class);
+//        register(PortalScopeFilter.class);
+//        register(AuthenticationFilter.class);
+//        register(AuthorizationFilter.class);
+        
+//        register(new MoxyJsonConfig().setAttributePrefix("@").resolver());
+//        register(
+//            new LoggingFeature(
+//                Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
+//                Level.SEVERE,
+//                LoggingFeature.Verbosity.PAYLOAD_ANY,
+//                LoggingFeature.DEFAULT_MAX_ENTITY_SIZE
+//            )
+//        );
+        
+        register(new ContainerLifecycleListener() {
+            
             public void onStartup(Container container) {
                 serviceLocator = container.getApplicationHandler().getServiceLocator();
             }
@@ -95,15 +95,15 @@ public class JerseyConfig extends ResourceConfig {
                 serviceLocator = null;
             }
         });
-		
-		BeanConfig beanConfig = new BeanConfig();
-		beanConfig.setVersion("1.0.0");
-		beanConfig.setSchemes(schemes);
-		beanConfig.setHost(host);
-		beanConfig.setBasePath("");
-		beanConfig.setResourcePackage("com.ntr1x.storage");
-		beanConfig.setScan(true);
-	}
+        
+        BeanConfig beanConfig = new BeanConfig();
+        beanConfig.setVersion("1.0.0");
+        beanConfig.setSchemes(schemes);
+        beanConfig.setHost(host);
+        beanConfig.setBasePath("");
+        beanConfig.setResourcePackage("com.ntr1x.storage");
+        beanConfig.setScan(true);
+    }
     
     public static class ServiceLocatorProvider {
         
