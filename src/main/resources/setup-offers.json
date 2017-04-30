@@ -1,67 +1,98 @@
 #set ($d = "$")
 {
-	"starter": {
-		"title": "Starter",
-		"promo": "30% discount for 1 year subscription",
-		"body": "",
-		"extra": {
-		  "price": "${d}10 / month",
-		  "benefits": [
-		  	"One portal",
-		  	"Unlimited number of pages",
-		  	"500 Mb Storage"
-		  ],
-		  "purpose": "Better suited for personal, event and product pages.",
-		  "action": "Purchase",
-		  "url": "/account/purchase"
-		}
-	},
-	"business": {
-		"title": "Business",
-		"promo": "30% discount for 1 year subscription",
-		"body": "",
-		"extra": {
-		  "price": "${d}100 / month",
-		  "benefits": [
-		  	"Up to 10 portals",
-			"Unlimited number of pages",
-			"2 Gb Storage per each portal"
-		  ],
-		  "purpose": "Better suited for small campanies and startups.",
-		  "action": "Purchase",
-		  "url": "/account/purchase"
-		}
-	},
-	"server": {
-		"title": "Server",
-		"promo": "30% discount for each additional server licence",
-		"body": "",
-		"extra": {
-		  "price": "${d}5000",
-		  "benefits": [
-		  	"Up to 100 portals",
-			"1 year subscription for updates",
-			"Deploy to your own hardrare"
-		  ],
-		  "purpose": "Better suited for web-developers and service providers.",
-		  "action": "Purchase",
-		  "url": "/account/purchase"
-		}
-	},
-	"advanced": {
-		"title": "Advanced",
-		"promo": "Do not see a suitable plan? Need a special offer?",
-		"body": "",
-		"extra": {
-		  "price": "Price on request",
-		  "benefits": [
-		  	"Branding",
-			"Integrations",
-			"Custom setup"
-		  ],
-		  "purpose": "We are welcome you as a partner. Please mail us.",
-		  "action": "Apply",
-		  "url": "/account/apply"
-		}
-	}
+    "starter": {
+        "title": "Starter",
+        "promo": "30% discount for 1 year subscription",
+        "body": "",
+        "extra": {
+            "price": "${d}10 / month",
+            "benefits": [
+                "Online designer",
+                "Up to 5 pages",
+                "500 Mb Storage"
+            ],
+            "purpose": "Better suited for personal, event and product pages.",
+            "action": "Purchase",
+            "url": "/account/purchase"
+        },
+        "prices": [
+            {
+                "title": "1 Month Starter Subscription",
+                "price": "10",
+                "currency": "USD"
+            },
+            {
+                "title": "1 Year Starter Subscription",
+                "price": "80",
+                "currency": "USD"
+            }
+        ]
+    },
+    "business": {
+        "title": "Business",
+        "promo": "30% discount for 1 year subscription",
+        "body": "",
+        "extra": {
+            "price": "${d}100 / month",
+            "benefits": [
+                "All commercial APIs included",
+                "Unlimited number of pages",
+                "2 Gb Storage"
+            ],
+            "purpose": "Better suited for small campanies and startups.",
+            "action": "Purchase",
+            "url": "/account/purchase"
+        },
+        "prices": [
+            {
+                "title": "1 Month Business Subscription",
+                "price": "100",
+                "currency": "USD"
+            },
+            {
+                "title": "1 Year Business Subscription",
+                "price": "800",
+                "currency": "USD"
+            }
+        ]
+    },
+    "server": {
+        "title": "Server",
+        "promo": "30% discount for licence renewal next year",
+        "body": "",
+        "extra": {
+            "price": "${d}5000",
+            "benefits": [
+              "Up to 100 portals",
+              "1 year subscription for updates",
+              "Deploy to your own hardrare"
+            ],
+            "purpose": "Better suited for web-developers and service providers.",
+            "action": "Purchase",
+            "url": "/account/purchase"
+        },
+        "prices": [
+            {
+                "title": "Server License",
+                "price": "5000",
+                "currency": "USD"
+            }
+        ]
+    },
+    "advanced": {
+        "title": "Advanced",
+        "promo": "Do not see a suitable plan? Need a special offer?",
+        "body": "",
+        "extra": {
+            "price": "Price on request",
+            "benefits": [
+              "Branding",
+              "Integrations",
+              "Custom setup"
+            ],
+            "purpose": "We are welcome you as a partner. Please mail us.",
+            "action": "Apply",
+            "url": "/account/apply"
+        }
+    }
 }
